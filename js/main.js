@@ -386,9 +386,9 @@ function load() {
             }
             //nível de energia
 
-            //let energ = Math.floor(energia/10) + 1;
+            let energ = Math.floor(energia/10) + 1;
 
-            //energyLevel(energ);
+            energyLevel(energ);
 
 
 

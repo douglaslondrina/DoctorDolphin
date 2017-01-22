@@ -291,25 +291,48 @@ function load() {
 //Timer de checagem de variáveis
         let intervalo1 = setInterval(function () {
             //Embelezamento de onda
-            if (bpm > 150) {
-                heart.ampDivisor = 1;
+            if (bpm > 180) {
+                heart.ampDivisor = 0.5;
                 divisor = 900;
                 heart.timer = 24;
-            } else if (bpm >= 100) {
+            } else if (bpm >= 160) {
                 heart.ampDivisor = 3
-                heart.timer = 20;
-                divisor = 300;
-            } else if (bpm > 50) {
+                heart.timer = 23;
+                divisor = 800;
+            } else if (bpm >= 140) {
+                    heart.ampDivisor = 4
+                    heart.timer = 20;
+                    divisor = 600;
+            } else if (bpm >= 120) {
+                    heart.ampDivisor = 5
+                    heart.timer = 22;
+                    divisor = 400;
+            }else if (bpm >= 100) {
+                    heart.ampDivisor = 5
+                    heart.timer = 20;
+                    divisor = 150;
+            } else if (bpm > 80) {
                 heart.timer = 19;
                 heart.ampDivisor = 7
-
-                divisor = 60;
-            } else if (bpm <= 50) {
+                divisor = 90;
+            } else if (bpm <= 60) {
                 heart.ampDivisor = 8
                 heart.time = 18;
+                divisor = 60;
+            } else if (bpm <= 40) {
+                heart.ampDivisor = 8
+                heart.time = 17;
+                divisor = 30;
+            } else if (bpm <= 20) {
+                heart.ampDivisor = 8
+                heart.time = 16;
                 divisor = 30;
             }
-
+            else if (bpm <= 0) {
+                heart.ampDivisor = 8
+                heart.time = 20;
+                divisor = 50;
+            }
 
             if (bpm > 200 || bpm < 0) {
                 death = true;

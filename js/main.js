@@ -299,6 +299,8 @@ function load() {
                 }
             }, time * 10);
         }
+        //sons
+
 
 
 //Timer de checagem de variáveis

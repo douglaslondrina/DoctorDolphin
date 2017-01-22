@@ -40,7 +40,8 @@ function load() {
 
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
-        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true}
+        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true},
+        {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -114,13 +115,17 @@ function load() {
           images: allImages['human'],
           animation: new animation(73,81,allImages['human'],20,10, {
             breathing: {start: 1, frames: 4, playing: false},
-            deathexplosion: {start: 5, frames: 9, playing: false},
+            deathexplosion: {start: 5, frames: 8, playing: false},
             deathinnanation: {start: 4, frames: 3, playing: false},
             shock: {start: 13, frames: 7, playing: false}
           }, "breathing", true)
         };
         // human.animation.changeTask("deathinnanation");
         // human.animation.loop = false;
+
+        let arm = {
+            animation: new animation(73,81,allImages['arm'],12,6)
+        };
 
         let divisor = 60; // novo
         function Heart() {
@@ -216,10 +221,12 @@ function load() {
                 console.log("morte");
 
                 if (bpm < 0){
-                    human.animation.changeTask("heartexplosion");
+                    human.animation.changeTask("deathexplosion");
+                    human.animation.loop = false;
                 }
                 if (bpm > 200){
-                  human.animation.changeTask("shock");
+                    human.animation.changeTask("shock");
+                    human.animation.loop = false;
                 }
 
 

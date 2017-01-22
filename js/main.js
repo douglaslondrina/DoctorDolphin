@@ -40,7 +40,7 @@ function load() {
 
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
-        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true},
+        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 21, animation: true},
         {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
         {name: 'cables', src: 'imagens/Cables/Cables',format: '.png',number: 2,animation: true}
     ], loadCode);
@@ -114,21 +114,15 @@ function load() {
 
         let human = {
             images: allImages['human'],
-            animation: new animation(73,81,allImages['human'],20,10, {
+            animation: new animation(73,81,allImages['human'],21,10, {
                 breathing: {start: 0, frames: 4, playing: false},
                 shock: {start: 14, frames: 2, playing: false},
-                deathexplosion: {start: 7, frames: 7, playing: false},
+                deathexplosion: {start: 6, frames: 7, playing: false},
                 deathinanition: {start: 4, frames: 3, playing: false},
-                deathburn: {start: 14, frames: 7, playing: false}
+                deathburn: {start: 14, frames: 6, playing: false},
+                smoking: {start: 19, frames: 2, playing: false}
             }, "breathing", true)
         };
-
-        /*setTimeout(function () {
-            human.animation.changeTask("shock");
-            human.animation.loop = false;
-        }, 3000);*/
-        // human.animation.changeTask("deathinnanation");
-        // human.animation.loop = false;
 
         let arm = {
             animation: new animation(61,50,allImages['arm'],12,6,{
@@ -240,13 +234,16 @@ function load() {
 
                 console.log("morte");
 
-                if (bpm < 0){
-                    human.animation.changeTask("deathexplosion");
+                if (bpm < 0) {
+                    human.animation.changeTask("deathinanition");
                     human.animation.loop = false;
                 }
-                if (bpm > 200){
+                if (bpm > 200) {
                     human.animation.changeTask("deathburn");
-                    human.animation.loop = false;
+                    setTimeout(function () {
+                        human.animation.changeTask("smoking");
+                        human.animation.loop = true;
+                    }, 900);
                 }
 
 
@@ -273,6 +270,12 @@ function load() {
         function reset() {
             //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
             setTimeout(function () {
+
+                // Reset Animation
+                human.animation.changeTask("breathing");
+                human.animation.loop = true;
+
+                // Reset game state
                 hidratacao = 70;
                 energia = 0;
                 score = 0;

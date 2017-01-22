@@ -112,14 +112,20 @@ function load() {
         };
 
         let human = {
-          images: allImages['human'],
-          animation: new animation(73,81,allImages['human'],20,10, {
-            breathing: {start: 1, frames: 4, playing: false},
-            deathexplosion: {start: 5, frames: 8, playing: false},
-            deathinnanation: {start: 4, frames: 3, playing: false},
-            shock: {start: 13, frames: 7, playing: false}
-          }, "breathing", true)
+            images: allImages['human'],
+            animation: new animation(73,81,allImages['human'],20,10, {
+                breathing: {start: 1, frames: 4, playing: false},
+                shock: {start: 14, frames: 2, playing: false},
+                deathexplosion: {start: 7, frames: 7, playing: false},
+                deathinanition: {start: 4, frames: 3, playing: false},
+                deathburn: {start: 14, frames: 7, playing: false}
+            }, "breathing", true)
         };
+
+        setTimeout(function () {
+            human.animation.changeTask("shock");
+            human.animation.loop = false;
+        }, 3000);
         // human.animation.changeTask("deathinnanation");
         // human.animation.loop = false;
 
@@ -232,7 +238,7 @@ function load() {
                     human.animation.loop = false;
                 }
                 if (bpm > 200){
-                    human.animation.changeTask("shock");
+                    human.animation.changeTask("deathburn");
                     human.animation.loop = false;
                 }
 
@@ -376,8 +382,8 @@ function load() {
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
-                    if (energia >= 50) {
-                        energia -= 50;
+                    if (energia >= 100) {
+                        energia -= 100;
                         bpm += bpm * 40 / 100;
                         hidratacao -= 10;
                         update();
@@ -412,15 +418,15 @@ function load() {
 
             let somador = Math.random() * 6 + 3;
             if (decisor < tendencia)
-                bpm += Math.floor(somador);
+                bpm += somador;
 
             else
-                bpm -= Math.floor(somador);
+                bpm -= somador;
 
 
             update();
 
-        }, 250);
+        }, 350);
 
 //Timer somador de energia
         setInterval(() => {

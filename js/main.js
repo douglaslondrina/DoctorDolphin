@@ -258,7 +258,6 @@ function load() {
             //reset();
 
             setTimeout(function () {
-                //processaFade(canvas, 3, 100, 0);//função que faz o fadeOut no grafico
 
                 console.log("morte");
 
@@ -304,20 +303,24 @@ function load() {
             //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
             setTimeout(function () {
 
-                // Reset Animation
-                human.animation.changeTask("breathing");
-                human.animation.loop = true;
+                processaFade(canvas, 2, 100, 0);
+                setTimeout(function () {
+                    processaFade(canvas, 3, 0, 100);
 
-                // Reset game state
-                hidratacao = 70;
-                energia = 0;
-                score = 0;
-                bpm = 80;
-                death = false;
-                counterGlobal = false;
-                update();
+                    // Reset Animation
+                    human.animation.changeTask("breathing");
+                    human.animation.loop = true;
+
+                    // Reset game state
+                    hidratacao = 70;
+                    energia = 0;
+                    score = 0;
+                    bpm = 80;
+                    death = false;
+                    counterGlobal = false;
+                    update();
+                }, 5000);
             }, 0)
-
         }
 
 //fade no div principal

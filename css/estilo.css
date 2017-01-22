@@ -1,6 +1,10 @@
+#score_box {
+}
+
 #text {
     z-index: 2;
     position: absolute;
+    display: none;
 }
 #heartCanvas {
     position: absolute;

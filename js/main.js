@@ -270,6 +270,9 @@ function load() {
 
                 console.log("morte");
 
+                dolphin.animation.changeTask('frustrated');
+                dolphin.animation.loop = false;
+
                 if (bpm < 0) {
                     human.animation.changeTask("deathinanition");
                     human.animation.loop = false;
@@ -286,7 +289,6 @@ function load() {
                         human.animation.loop = false;
                     }
                 }
-
 
                 setTimeout(function () {
                     reset();

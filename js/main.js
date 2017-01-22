@@ -375,12 +375,12 @@ function load() {
 
         let human = {
           images: allImages['human'],
-          animation: new animation(73,81,allImages['human'],2,3, {
+          animation: new animation(73,81,allImages['human'],20,10, {
             breathing: {start: 0, frames: 4, playing: false},
             heartexplosion: {start: 5, frames: 9, playing: false},
             shock: {start: 13, frames: 7, playing: false}
           }, "breathing", true)
-        }
+        };
 
         let intervaloCanvas = setInterval(() => {
             ctx.clearRect(0,0,canvas.width,canvas.height);

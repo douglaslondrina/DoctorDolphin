@@ -375,15 +375,15 @@ function load() {
 
             let somador = Math.random() * 6 + 3;
             if (decisor < tendencia)
-                bpm += Math.floor(somador);
+                bpm += somador;
 
             else
-                bpm -= Math.floor(somador);
+                bpm -= somador;
 
 
             update();
 
-        }, 250);
+        }, 350);
 
 //Timer somador de energia
         setInterval(() => {

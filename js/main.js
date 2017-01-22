@@ -386,18 +386,21 @@ function load() {
                 //tecla S
                 if (event.keyCode == keyDown && death == false) {
                     hidratacao += 5;
-                    bpm -= bpm * 20 / 100;
+                    bpm -= bpm * 15 / 100;
                     update();
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
-                    if (energia >= 100) {
-                        energia -= 100;
-                        bpm += bpm * 40 / 100;
-                        hidratacao -= 10;
-                        update();
-                    }
+                    energyPulse();
+                    setTimeout(function () {
+                      if (energia >= 100) {
+                          energia -= 100;
+                          bpm += bpm * 25 / 100;
+                          hidratacao -= 10;
+                          update();
+                      }
 
+                    }, 800);
 
                 } else if (event.keyCode == keyRight) {
                     if (energia >= 400) {

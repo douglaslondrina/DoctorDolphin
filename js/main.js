@@ -165,7 +165,9 @@ function load() {
             },"bar1",false)
         };
         energyLevel = function (val) {
-            energy.animation.changeTask("bar"+val);
+            if (val <= 6) {
+                energy.animation.changeTask("bar" + val);
+            }
         };
 
         let serum = {
@@ -175,7 +177,9 @@ function load() {
             serum.animation.task["serum"+i] = {start: i+1,frames:1,playing:false};
         }
         serumLevel = function (val) {
-            serum.animation.changeTask("serum"+val);
+            if (val <=41) {
+                serum.animation.changeTask("serum" + val);
+            }
         };
 
         let divisor = 60; // novo
@@ -407,6 +411,18 @@ function load() {
                 heart.time = 20;
                 divisor = 50;
             }
+            //nível de energia
+
+            let energ = Math.floor(energia/100) + 1;
+            if (energ == 5)
+                energ+=1;
+
+
+
+            energyLevel(energ);
+
+
+
 
             if (bpm > 200 || bpm < 0) {
                 death = true;

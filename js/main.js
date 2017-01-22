@@ -293,7 +293,7 @@ function load() {
                 setTimeout(function () {
                     reset();
                 }, 3000);
-            }, 1000)
+            }, 500)
 
         }
 
@@ -321,6 +321,8 @@ function load() {
                     // Reset Animation
                     human.animation.changeTask("breathing");
                     human.animation.loop = true;
+                    dolphin.animation.changeTask('moving');
+                    dolphin.animation.loop = true;
 
                     // Reset game state
                     hidratacao = 70;

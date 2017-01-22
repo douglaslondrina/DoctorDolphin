@@ -41,6 +41,7 @@ function load() {
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
         {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 21, animation: true},
+        {name: 'dolphin', src: 'imagens/Dolphin/Dolphin', format: '.png', number: 9, animation: true},
         {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
         {name: 'cables', src: 'imagens/Cables/Cables', format: '.png', number: 2, animation: true},
         {name: 'energyBar', src: 'imagens/EnergyBar/EnergyBar', format: '.png', number: 7, animation: true},
@@ -125,6 +126,16 @@ function load() {
                 smoking: {start: 19, frames: 2, playing: false}
             }, "breathing", true)
         };
+
+        let dolphin = {
+            images: allImages['dolphin'],
+            animation: new animation(240,60,allImages['dolphin'],9,9, {
+                moving: {start: 3, frames: 2, playing: false},
+                talking: {start: 1, frames: 2, playing: false},
+                frustrated: {start: 7, frames: 2, playing: false},
+                winning: {start: 5, frames: 1, playing: false}
+            }, 'moving', true)
+        }
 
         let arm = {
             animation: new animation(61, 50, allImages['arm'], 12, 6, {
@@ -260,27 +271,33 @@ function load() {
             //reset();
 
             setTimeout(function () {
-                //processaFade(canvas, 3, 100, 0);//função que faz o fadeOut no grafico
 
                 console.log("morte");
+
+                dolphin.animation.changeTask('frustrated');
+                dolphin.animation.loop = false;
 
                 if (bpm < 0) {
                     human.animation.changeTask("deathinanition");
                     human.animation.loop = false;
                 }
                 if (bpm > 200) {
-                    human.animation.changeTask("deathburn");
-                    setTimeout(function () {
-                        human.animation.changeTask("smoking");
-                        human.animation.loop = true;
-                    }, 900);
+                    if (energia < 200) {
+                        human.animation.changeTask("deathburn");
+                        setTimeout(function () {
+                            human.animation.changeTask("smoking");
+                            human.animation.loop = true;
+                        }, 900);
+                    } else {
+                        human.animation.changeTask("deathexplosion");
+                        human.animation.loop = false;
+                    }
                 }
-
 
                 setTimeout(function () {
                     reset();
                 }, 3000);
-            }, 1000)
+            }, 500)
 
         }
 
@@ -301,20 +318,26 @@ function load() {
             //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
             setTimeout(function () {
 
-                // Reset Animation
-                human.animation.changeTask("breathing");
-                human.animation.loop = true;
+                processaFade(canvas, 2, 100, 0);
+                setTimeout(function () {
+                    processaFade(canvas, 3, 0, 100);
 
-                // Reset game state
-                hidratacao = 70;
-                energia = 0;
-                score = 0;
-                bpm = 80;
-                death = false;
-                counterGlobal = false;
-                update();
+                    // Reset Animation
+                    human.animation.changeTask("breathing");
+                    human.animation.loop = true;
+                    dolphin.animation.changeTask('moving');
+                    dolphin.animation.loop = true;
+
+                    // Reset game state
+                    hidratacao = 70;
+                    energia = 0;
+                    score = 0;
+                    bpm = 80;
+                    death = false;
+                    counterGlobal = false;
+                    update();
+                }, 5000);
             }, 0)
-
         }
 
 //fade no div principal
@@ -540,6 +563,7 @@ function load() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             scene.animation.run();
             human.animation.run();
+            dolphin.animation.run();
             arm.animation.run();
             cables.animation.run();
             energy.animation.run();

@@ -1,6 +1,25 @@
+#logo {
+    width: Calc(4px*330px);
+    height:640px;
+    position: absolute;
+    z-index: 0;
+
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+
+}
+#score_box {
+}
+
 #text {
     z-index: 2;
     position: absolute;
+    display: none;
 }
 #heartCanvas {
     position: absolute;

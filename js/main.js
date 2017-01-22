@@ -41,7 +41,8 @@ function load() {
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
         {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true},
-        {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true}
+        {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
+        {name: 'cables', src: 'imagens/Cables/Cables',format: '.png',number: 2,animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -138,6 +139,12 @@ function load() {
 
         energyPulse = function () {
             arm.animation.changeTask('hit');
+        };
+
+        let cables = {
+            animation: new animation(0,0,allImages['cables'],2,2,{
+                iddle: {start: 0, frames: 1, playing: false}
+            },"iddle",true)
         };
 
         let divisor = 60; // novo
@@ -467,6 +474,7 @@ function load() {
             scene.animation.run();
             human.animation.run();
             arm.animation.run();
+            cables.animation.run();
         }, 1000 / 60);
 
     }

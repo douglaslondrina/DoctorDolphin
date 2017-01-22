@@ -38,7 +38,10 @@ function load() {
         }
     }
 
-    loadImages([{name: 'scene',src: 'imagens/Scene', format: '.png', number: 2, animation: true}],loadCode);
+    loadImages([
+      {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
+      {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true}
+    ], loadCode);
 
     function loadCode() {
         let heartCanvas = document.getElementById('heartCanvas');
@@ -364,17 +367,25 @@ function load() {
          }, "off", true);*/
 
         let scene = {
-            x: 0,
-            y: 0,
             images: allImages['scene'],
             animation: new animation(0,0,allImages['scene'],2,3,{
                 blinking: {start: 0, frames: 2, playing: false}
-            },"blinking",true)
+            }, "blinking", true)
         };
+
+        let human = {
+          images: allImages['human'],
+          animation: new animation(73,81,allImages['human'],2,3, {
+            breathing: {start: 0, frames: 4, playing: false},
+            heartexplosion: {start: 5, frames: 9, playing: false},
+            shock: {start: 13, frames: 7, playing: false}
+          }, "breathing", true)
+        }
 
         let intervaloCanvas = setInterval(() => {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             scene.animation.run();
+            human.animation.run();
         },1000/60);
 
     }

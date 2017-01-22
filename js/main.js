@@ -103,6 +103,25 @@ function load() {
             }
         }
 
+        let scene = {
+            images: allImages['scene'],
+            animation: new animation(0,0,allImages['scene'],2,3,{
+                blinking: {start: 0, frames: 2, playing: false}
+            }, "blinking", true)
+        };
+
+        let human = {
+          images: allImages['human'],
+          animation: new animation(73,81,allImages['human'],20,10, {
+            breathing: {start: 1, frames: 4, playing: false},
+            deathexplosion: {start: 5, frames: 9, playing: false},
+            deathinnanation: {start: 4, frames: 3, playing: false},
+            shock: {start: 13, frames: 7, playing: false}
+          }, "breathing", true)
+        };
+        // human.animation.changeTask("deathinnanation");
+        // human.animation.loop = false;
+
         let divisor = 60; // novo
         function Heart() {
             let data = [100, 101];
@@ -195,6 +214,15 @@ function load() {
                 //processaFade(canvas, 3, 100, 0);//função que faz o fadeOut no grafico
 
                 console.log("morte");
+
+                if (bpm < 0){
+                    human.animation.changeTask("heartexplosion");
+                }
+                if (bpm > 200){
+                  human.animation.changeTask("shock");
+                }
+
+
                 setTimeout(function () {
                     reset();
                 }, 3000);
@@ -404,22 +432,6 @@ function load() {
          start: {start: 1, frames: 14, playing: false},
          blink: {start: 15, frames: 2, playing: false}
          }, "off", true);*/
-
-        let scene = {
-            images: allImages['scene'],
-            animation: new animation(0, 0, allImages['scene'], 2, 3, {
-                blinking: {start: 0, frames: 2, playing: false}
-            }, "blinking", true)
-        };
-
-        let human = {
-            images: allImages['human'],
-            animation: new animation(73, 81, allImages['human'], 20, 10, {
-                breathing: {start: 0, frames: 4, playing: false},
-                heartexplosion: {start: 5, frames: 9, playing: false},
-                shock: {start: 13, frames: 7, playing: false}
-            }, "breathing", true)
-        };
 
         let intervaloCanvas = setInterval(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);

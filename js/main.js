@@ -111,14 +111,20 @@ function load() {
         };
 
         let human = {
-          images: allImages['human'],
-          animation: new animation(73,81,allImages['human'],20,10, {
-            breathing: {start: 1, frames: 4, playing: false},
-            deathexplosion: {start: 5, frames: 9, playing: false},
-            deathinnanation: {start: 4, frames: 3, playing: false},
-            shock: {start: 13, frames: 7, playing: false}
-          }, "breathing", true)
+            images: allImages['human'],
+            animation: new animation(73,81,allImages['human'],20,10, {
+                breathing: {start: 1, frames: 4, playing: false},
+                shock: {start: 14, frames: 2, playing: false},
+                deathexplosion: {start: 7, frames: 7, playing: false},
+                deathinanition: {start: 4, frames: 3, playing: false},
+                deathburn: {start: 14, frames: 7, playing: false}
+            }, "breathing", true)
         };
+
+        setTimeout(function () {
+            human.animation.changeTask("shock");
+            human.animation.loop = false;
+        }, 3000);
         // human.animation.changeTask("deathinnanation");
         // human.animation.loop = false;
 
@@ -219,7 +225,7 @@ function load() {
                     human.animation.changeTask("heartexplosion");
                 }
                 if (bpm > 200){
-                  human.animation.changeTask("shock");
+                    human.animation.changeTask("deathburn");
                 }
 
 

@@ -43,7 +43,8 @@ function load() {
         {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 21, animation: true},
         {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
         {name: 'cables', src: 'imagens/Cables/Cables', format: '.png', number: 2, animation: true},
-        {name: 'energyBar', src: 'imagens/EnergyBar/EnergyBar', format: '.png', number: 7, animation: true}
+        {name: 'energyBar', src: 'imagens/EnergyBar/EnergyBar', format: '.png', number: 7, animation: true},
+        {name: 'serum', src: 'imagens/Serum/Serum', format: '.png', number: 43, animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -143,11 +144,13 @@ function load() {
         };
 
         let energy = {
-            animation: new animation(20,0,allImages['energyBar'],7,10,{
+            animation: new animation(33,16,allImages['energyBar'],7,10,{
                 bar1: {start: 1,frames:1,playing: false},
-                bar2: {start: 3,frames:1,playing: false},
-                bar3: {start: 5,frames:1,playing: false},
-                bar4: {start: 6,frames:1,playing: false}
+                bar2: {start: 2,frames:1,playing: false},
+                bar3: {start: 3,frames:1,playing: false},
+                bar4: {start: 4,frames:1,playing: false},
+                bar5: {start: 5,frames:1,playing: false},
+                bar6: {start: 6,frames:1,playing: false}
             },"bar1",false)
         };
         energyLevel = function (val) {
@@ -155,7 +158,13 @@ function load() {
         };
 
         let serum = {
-            animation: new animation()
+            animation: new animation(13,58,allImages['serum'],43,10,{},"serum1",false)
+        };
+        for (let i = -1; i < 43;i++){
+            serum.animation.task["serum"+i] = {start: i+1,frames:1,playing:false};
+        }
+        serumLevel = function (val) {
+            serum.animation.changeTask("serum"+val);
         };
 
         let divisor = 60; // novo
@@ -522,6 +531,7 @@ function load() {
             arm.animation.run();
             cables.animation.run();
             energy.animation.run();
+            serum.animation.run();
         }, 1000 / 60);
 
     }

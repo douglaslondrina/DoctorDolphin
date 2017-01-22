@@ -1,4 +1,7 @@
 function load() {
+
+    var game_over = false;
+
     allImages = [];
     function loadImages(images, loading) {
         var self = this;
@@ -315,29 +318,26 @@ function load() {
 //reseta as letiáveis para caso morra
 
         function reset() {
-            //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
-            setTimeout(function () {
+            game_over = true;
+            processaFade(canvas, 2, 100, 0);
+        }
+        function restartPlay() {
+            processaFade(canvas, 3, 0, 100);
 
-                processaFade(canvas, 2, 100, 0);
-                setTimeout(function () {
-                    processaFade(canvas, 3, 0, 100);
+            // Reset Animation
+            human.animation.changeTask("breathing");
+            human.animation.loop = true;
+            dolphin.animation.changeTask('moving');
+            dolphin.animation.loop = true;
 
-                    // Reset Animation
-                    human.animation.changeTask("breathing");
-                    human.animation.loop = true;
-                    dolphin.animation.changeTask('moving');
-                    dolphin.animation.loop = true;
-
-                    // Reset game state
-                    hidratacao = 70;
-                    energia = 0;
-                    score = 0;
-                    bpm = 80;
-                    death = false;
-                    counterGlobal = false;
-                    update();
-                }, 5000);
-            }, 0)
+            // Reset game state
+            hidratacao = 70;
+            energia = 0;
+            score = 0;
+            bpm = 80;
+            death = false;
+            counterGlobal = false;
+            update();
         }
 
 //fade no div principal
@@ -450,6 +450,11 @@ function load() {
         keyLeft = 65;
         keyRight = 68;
         window.addEventListener("keyup", function (event) {
+
+                if (game_over) {
+                    game_over = false;
+                    restartPlay();
+                }
 
                 //tecla S
                 if (event.keyCode == keyDown && death == false) {

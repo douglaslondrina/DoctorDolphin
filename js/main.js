@@ -256,14 +256,28 @@ function load() {
 //Timer de checagem de variáveis
         let intervalo1 = setInterval(function () {
             //Embelezamento de onda
-            if (bpm > 150) {
+            if (bpm > 180) {
                 heart.ampDivisor = 1;
                 divisor = 900;
                 heart.timer = 24;
-            } else if (bpm >= 100) {
+            } else if (bpm >= 160) {
                 heart.ampDivisor = 3
                 heart.timer = 20;
                 divisor = 300;
+            else if (bpm >= 140) {
+                    heart.ampDivisor = 3
+                    heart.timer = 20;
+                    divisor = 300;
+                }
+            } else if (bpm >= 120) {
+                heart.ampDivisor = 3
+                heart.timer = 20;
+                divisor = 300;
+            else if (bpm >= 120) {
+                    heart.ampDivisor = 3
+                    heart.timer = 20;
+                    divisor = 300;
+                }
             } else if (bpm > 50) {
                 heart.timer = 19;
                 heart.ampDivisor = 7

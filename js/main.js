@@ -41,6 +41,7 @@ function load() {
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
         {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 21, animation: true},
+        {name: 'dolphin', src: 'imagens/Dolphin/Dolphin', format: '.png', number: 9, animation: true},
         {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
         {name: 'cables', src: 'imagens/Cables/Cables',format: '.png',number: 2,animation: true}
     ], loadCode);
@@ -123,6 +124,16 @@ function load() {
                 smoking: {start: 19, frames: 2, playing: false}
             }, "breathing", true)
         };
+
+        let dolphin = {
+            images: allImages['dolphin'],
+            animation: new animation(240,60,allImages['dolphin'],9,9, {
+                moving: {start: 3, frames: 2, playing: false},
+                talking: {start: 1, frames: 2, playing: false},
+                frustrated: {start: 7, frames: 2, playing: false},
+                winning: {start: 5, frames: 1, playing: false}
+            }, 'moving', true)
+        }
 
         let arm = {
             animation: new animation(61,50,allImages['arm'],12,6,{
@@ -483,6 +494,7 @@ function load() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             scene.animation.run();
             human.animation.run();
+            dolphin.animation.run();
             arm.animation.run();
             cables.animation.run();
         }, 1000 / 60);

@@ -375,6 +375,14 @@ function load() {
                 heart.time = 20;
                 divisor = 50;
             }
+            //nível de energia
+
+            //let energ = Math.floor(energia/10) + 1;
+
+            //energyLevel(energ);
+
+
+
 
             if (bpm > 200 || bpm < 0) {
                 death = true;

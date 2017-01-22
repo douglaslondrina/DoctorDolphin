@@ -415,7 +415,11 @@ function load() {
                     setTimeout(function () {
                       if (energia >= 100) {
                           energia -= 100;
-                          bpm += bpm * 20 / 100;
+                          if (bpm < 60) {
+                              bpm += bpm * 20 / 100 + 10;
+                          } else {
+                              bpm += bpm * 20 / 100;
+                          }
                           hidratacao -= 10;
                           update();
                       }
@@ -450,7 +454,7 @@ function load() {
             let somador = 0;
 
             if (bpm < 60){
-              somador = Math.random() ;
+              somador = Math.random() * 3 + 3;
             } else{
               somador = Math.random() * 6 + 3;
             }

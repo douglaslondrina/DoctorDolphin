@@ -124,7 +124,14 @@ function load() {
         // human.animation.loop = false;
 
         let arm = {
-            animation: new animation(73,81,allImages['arm'],12,6)
+            animation: new animation(61,50,allImages['arm'],12,6,{
+                iddle: {start: 0,frames:1,playing: false},
+                hit: {start: 2, frames:10,playing: false}
+            },'iddle',false)
+        };
+
+        energyPulse = function () {
+            arm.animation.changeTask('hit');
         };
 
         let divisor = 60; // novo
@@ -453,6 +460,7 @@ function load() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             scene.animation.run();
             human.animation.run();
+            arm.animation.run();
         }, 1000 / 60);
 
     }

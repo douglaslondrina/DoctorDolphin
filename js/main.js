@@ -40,7 +40,8 @@ function load() {
 
     loadImages([
         {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
-        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true}
+        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true},
+        {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -111,16 +112,26 @@ function load() {
         };
 
         let human = {
-          images: allImages['human'],
-          animation: new animation(73,81,allImages['human'],20,10, {
-            breathing: {start: 1, frames: 4, playing: false},
-            deathexplosion: {start: 5, frames: 9, playing: false},
-            deathinnanation: {start: 4, frames: 3, playing: false},
-            shock: {start: 13, frames: 7, playing: false}
-          }, "breathing", true)
+            images: allImages['human'],
+            animation: new animation(73,81,allImages['human'],20,10, {
+                breathing: {start: 1, frames: 4, playing: false},
+                shock: {start: 14, frames: 2, playing: false},
+                deathexplosion: {start: 7, frames: 7, playing: false},
+                deathinanition: {start: 4, frames: 3, playing: false},
+                deathburn: {start: 14, frames: 7, playing: false}
+            }, "breathing", true)
         };
+
+        setTimeout(function () {
+            human.animation.changeTask("shock");
+            human.animation.loop = false;
+        }, 3000);
         // human.animation.changeTask("deathinnanation");
         // human.animation.loop = false;
+
+        let arm = {
+            animation: new animation(73,81,allImages['arm'],12,6)
+        };
 
         let divisor = 60; // novo
         function Heart() {
@@ -216,10 +227,12 @@ function load() {
                 console.log("morte");
 
                 if (bpm < 0){
-                    human.animation.changeTask("heartexplosion");
+                    human.animation.changeTask("deathexplosion");
+                    human.animation.loop = false;
                 }
                 if (bpm > 200){
-                  human.animation.changeTask("shock");
+                    human.animation.changeTask("deathburn");
+                    human.animation.loop = false;
                 }
 
 
@@ -284,25 +297,48 @@ function load() {
 //Timer de checagem de variáveis
         let intervalo1 = setInterval(function () {
             //Embelezamento de onda
-            if (bpm > 150) {
-                heart.ampDivisor = 1;
+            if (bpm > 180) {
+                heart.ampDivisor = 0.5;
                 divisor = 900;
                 heart.timer = 24;
-            } else if (bpm >= 100) {
+            } else if (bpm >= 160) {
                 heart.ampDivisor = 3
-                heart.timer = 20;
-                divisor = 300;
-            } else if (bpm > 50) {
+                heart.timer = 23;
+                divisor = 800;
+            } else if (bpm >= 140) {
+                    heart.ampDivisor = 4
+                    heart.timer = 20;
+                    divisor = 600;
+            } else if (bpm >= 120) {
+                    heart.ampDivisor = 5
+                    heart.timer = 22;
+                    divisor = 400;
+            }else if (bpm >= 100) {
+                    heart.ampDivisor = 5
+                    heart.timer = 20;
+                    divisor = 150;
+            } else if (bpm > 80) {
                 heart.timer = 19;
                 heart.ampDivisor = 7
-
-                divisor = 60;
-            } else if (bpm <= 50) {
+                divisor = 90;
+            } else if (bpm <= 60) {
                 heart.ampDivisor = 8
                 heart.time = 18;
+                divisor = 60;
+            } else if (bpm <= 40) {
+                heart.ampDivisor = 8
+                heart.time = 17;
+                divisor = 30;
+            } else if (bpm <= 20) {
+                heart.ampDivisor = 8
+                heart.time = 16;
                 divisor = 30;
             }
-
+            else if (bpm <= 0) {
+                heart.ampDivisor = 8
+                heart.time = 20;
+                divisor = 50;
+            }
 
             if (bpm > 200 || bpm < 0) {
                 death = true;

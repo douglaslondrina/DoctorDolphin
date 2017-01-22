@@ -43,7 +43,8 @@ function load() {
         {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 21, animation: true},
         {name: 'dolphin', src: 'imagens/Dolphin/Dolphin', format: '.png', number: 9, animation: true},
         {name: 'arm', src: 'imagens/arm/arm', format: '.png', number: 12, animation: true},
-        {name: 'cables', src: 'imagens/Cables/Cables',format: '.png',number: 2,animation: true}
+        {name: 'cables', src: 'imagens/Cables/Cables', format: '.png', number: 2, animation: true},
+        {name: 'energyBar', src: 'imagens/EnergyBar/EnergyBar', format: '.png', number: 7, animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -108,7 +109,7 @@ function load() {
 
         let scene = {
             images: allImages['scene'],
-            animation: new animation(0,0,allImages['scene'],2,3,{
+            animation: new animation(0, 0, allImages['scene'], 2, 3, {
                 blinking: {start: 0, frames: 2, playing: false}
             }, "blinking", true)
         };
@@ -136,10 +137,10 @@ function load() {
         }
 
         let arm = {
-            animation: new animation(61,50,allImages['arm'],12,6,{
-                iddle: {start: 0,frames:1,playing: false},
-                hit: {start: 2, frames:10,playing: false}
-            },'iddle',false)
+            animation: new animation(61, 50, allImages['arm'], 12, 6, {
+                iddle: {start: 0, frames: 1, playing: false},
+                hit: {start: 2, frames: 10, playing: false}
+            }, 'iddle', false)
         };
 
         energyPulse = function () {
@@ -147,9 +148,25 @@ function load() {
         };
 
         let cables = {
-            animation: new animation(0,0,allImages['cables'],2,2,{
+            animation: new animation(0, 0, allImages['cables'], 2, 2, {
                 iddle: {start: 0, frames: 1, playing: false}
-            },"iddle",true)
+            }, "iddle", true)
+        };
+
+        let energy = {
+            animation: new animation(20,0,allImages['energyBar'],7,10,{
+                bar1: {start: 1,frames:1,playing: false},
+                bar2: {start: 3,frames:1,playing: false},
+                bar3: {start: 5,frames:1,playing: false},
+                bar4: {start: 6,frames:1,playing: false}
+            },"bar1",false)
+        };
+        energyLevel = function (val) {
+            energy.animation.changeTask("bar"+val);
+        };
+
+        let serum = {
+            animation: new animation()
         };
 
         let divisor = 60; // novo
@@ -341,17 +358,17 @@ function load() {
                 heart.timer = 23;
                 divisor = 800;
             } else if (bpm >= 140) {
-                    heart.ampDivisor = 4
-                    heart.timer = 20;
-                    divisor = 600;
+                heart.ampDivisor = 4
+                heart.timer = 20;
+                divisor = 600;
             } else if (bpm >= 120) {
-                    heart.ampDivisor = 5
-                    heart.timer = 22;
-                    divisor = 400;
-            }else if (bpm >= 100) {
-                    heart.ampDivisor = 5
-                    heart.timer = 20;
-                    divisor = 150;
+                heart.ampDivisor = 5
+                heart.timer = 22;
+                divisor = 400;
+            } else if (bpm >= 100) {
+                heart.ampDivisor = 5
+                heart.timer = 20;
+                divisor = 150;
             } else if (bpm > 80) {
                 heart.timer = 19;
                 heart.ampDivisor = 7
@@ -405,18 +422,21 @@ function load() {
                 //tecla S
                 if (event.keyCode == keyDown && death == false) {
                     hidratacao += 5;
-                    bpm -= bpm * 20 / 100;
+                    bpm -= bpm * 15 / 100;
                     update();
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
-                    if (energia >= 100) {
-                        energia -= 100;
-                        bpm += bpm * 40 / 100;
-                        hidratacao -= 10;
-                        update();
-                    }
+                    energyPulse();
+                    setTimeout(function () {
+                      if (energia >= 100) {
+                          energia -= 100;
+                          bpm += bpm * 25 / 100;
+                          hidratacao -= 10;
+                          update();
+                      }
 
+                    }, 800);
 
                 } else if (event.keyCode == keyRight) {
                     if (energia >= 400) {
@@ -497,6 +517,7 @@ function load() {
             dolphin.animation.run();
             arm.animation.run();
             cables.animation.run();
+            energy.animation.run();
         }, 1000 / 60);
 
     }

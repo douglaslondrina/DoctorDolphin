@@ -416,10 +416,14 @@ function load() {
             let energ = Math.floor(energia/100) + 1;
             if (energ == 5)
                 energ+=1;
-
-
-
             energyLevel(energ);
+
+            let hi = 42 - Math.floor((41*hidratacao)/100);
+            console.log(hi);
+
+            serumLevel(hi);
+
+
 
 
 

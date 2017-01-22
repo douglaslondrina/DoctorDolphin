@@ -126,10 +126,10 @@ function load() {
                     this.pumping = true;
                 }
 
-                ctx.strokeStyle = "white";
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(x - 1, data[1]);
+                heartCanvasCTX.strokeStyle = "white";
+                heartCanvasCTX.lineWidth = 2;
+                heartCanvasCTX.beginPath();
+                heartCanvasCTX.moveTo(x - 1, data[1]-25);
 
                 let angle = x * (180 / Math.PI);
                 value += adder;
@@ -144,9 +144,9 @@ function load() {
                 }
                 data[0] = value * Math.sin(angle) + 100;
 
-                ctx.lineTo(x, data[0]);
-                ctx.stroke();
-                ctx.clearRect(x + 1, 0, 1, canvas.height);
+                heartCanvasCTX.lineTo(x, data[0]-25);
+                heartCanvasCTX.stroke();
+                heartCanvasCTX.clearRect(x + 1, 0, 1, heartCanvas.height);
 
 
                 angle = x * (180 / Math.PI);
@@ -187,7 +187,7 @@ function load() {
             //reset();
 
             setTimeout(function () {
-                processaFade(canvas, 3, 100, 0);//função que faz o fadeOut no grafico
+                //processaFade(canvas, 3, 100, 0);//função que faz o fadeOut no grafico
 
                 console.log("morte");
                 setTimeout(function () {
@@ -210,7 +210,7 @@ function load() {
 //reseta as letiáveis para caso morra
 
         function reset() {
-            processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
+            //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
             setTimeout(function () {
                 hidratacao = 80;
                 energia = 0;

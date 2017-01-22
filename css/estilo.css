@@ -3,8 +3,6 @@
     position: absolute;
 }
 #heartCanvas {
-    width: 150px;
-    height: 150px;
     position: absolute;
     top:  56%;
     left: 50%;

@@ -239,11 +239,16 @@ function load() {
                     human.animation.loop = false;
                 }
                 if (bpm > 200) {
-                    human.animation.changeTask("deathburn");
-                    setTimeout(function () {
-                        human.animation.changeTask("smoking");
-                        human.animation.loop = true;
-                    }, 900);
+                    if (energia < 200) {
+                        human.animation.changeTask("deathburn");
+                        setTimeout(function () {
+                            human.animation.changeTask("smoking");
+                            human.animation.loop = true;
+                        }, 900);
+                    } else {
+                        human.animation.changeTask("deathexplosion");
+                        human.animation.loop = false;
+                    }
                 }
 
 

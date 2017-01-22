@@ -114,7 +114,7 @@ function load() {
         let human = {
             images: allImages['human'],
             animation: new animation(73,81,allImages['human'],20,10, {
-                breathing: {start: 1, frames: 4, playing: false},
+                breathing: {start: 0, frames: 4, playing: false},
                 shock: {start: 14, frames: 2, playing: false},
                 deathexplosion: {start: 7, frames: 7, playing: false},
                 deathinanition: {start: 4, frames: 3, playing: false},
@@ -122,10 +122,10 @@ function load() {
             }, "breathing", true)
         };
 
-        setTimeout(function () {
+        /*setTimeout(function () {
             human.animation.changeTask("shock");
             human.animation.loop = false;
-        }, 3000);
+        }, 3000);*/
         // human.animation.changeTask("deathinnanation");
         // human.animation.loop = false;
 

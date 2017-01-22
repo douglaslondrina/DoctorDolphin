@@ -311,8 +311,8 @@ function load() {
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
-                    if (energia >= 50) {
-                        energia -= 50;
+                    if (energia >= 100) {
+                        energia -= 100;
                         bpm += bpm * 40 / 100;
                         hidratacao -= 10;
                         update();

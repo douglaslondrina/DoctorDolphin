@@ -144,7 +144,7 @@ function load() {
         };
 
         let energy = {
-            animation: new animation(20,0,allImages['energyBar'],7,10,{
+            animation: new animation(33,16,allImages['energyBar'],7,10,{
                 bar1: {start: 1,frames:1,playing: false},
                 bar2: {start: 2,frames:1,playing: false},
                 bar3: {start: 3,frames:1,playing: false},

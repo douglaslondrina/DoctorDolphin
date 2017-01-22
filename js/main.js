@@ -39,8 +39,8 @@ function load() {
     }
 
     loadImages([
-      {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
-      {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true}
+        {name: 'scene', src: 'imagens/Scene', format: '.png', number: 2, animation: true},
+        {name: 'human', src: 'imagens/Human/Human', format: '.png', number: 20, animation: true}
     ], loadCode);
 
     function loadCode() {
@@ -103,10 +103,12 @@ function load() {
             }
         }
 
+        let divisor = 60; // novo
         function Heart() {
             let data = [100, 101];
             let value = 0;
             let adder = 1;
+            this.ampDivisor = 5;
             this.input = 80;
             this.pumping = true;
             this.timer = 20;
@@ -114,7 +116,7 @@ function load() {
             let x = 0;
             let counter = 0;
             this.update = () => {
-                let amp = Math.floor(this.input / 1);
+                let amp = Math.floor(this.input / this.ampDivisor);
 
                 x += 1;
                 if (x > 150) {
@@ -132,7 +134,7 @@ function load() {
                 heartCanvasCTX.strokeStyle = "white";
                 heartCanvasCTX.lineWidth = 2;
                 heartCanvasCTX.beginPath();
-                heartCanvasCTX.moveTo(x - 1, data[1]-25);
+                heartCanvasCTX.moveTo(x - 1, data[1] - 25);
 
                 let angle = x * (180 / Math.PI);
                 value += adder;
@@ -147,7 +149,7 @@ function load() {
                 }
                 data[0] = value * Math.sin(angle) + 100;
 
-                heartCanvasCTX.lineTo(x, data[0]-25);
+                heartCanvasCTX.lineTo(x, data[0] - 25);
                 heartCanvasCTX.stroke();
                 heartCanvasCTX.clearRect(x + 1, 0, 1, heartCanvas.height);
 
@@ -171,13 +173,13 @@ function load() {
 
         let intervalo = setInterval(() => {
             heart.update();
-        }, 1000 / 60);
+        }, 1000 / divisor);
 
 
         //Parte jogável
 
         //Dados iniciais
-        let hidratacao = 80;
+        let hidratacao = 70;
         let energia = 0;
         let score = 0;
         let bpm = 80;
@@ -203,6 +205,7 @@ function load() {
 
 //Atualiza as informações mostradas
         function update() {
+            bpm = Math.floor(bpm);
             hidratacaoHtml.innerHTML = "Hidratação: " + hidratacao;
             bpmHtml.innerHTML = "Bpm: " + bpm;
             energiaHtml.innerHTML = "Energia: " + energia;
@@ -215,7 +218,7 @@ function load() {
         function reset() {
             //processaFade(canvas, 3, 0, 100);//função que faz o fadeIn no grafico
             setTimeout(function () {
-                hidratacao = 80;
+                hidratacao = 70;
                 energia = 0;
                 score = 0;
                 bpm = 80;
@@ -252,6 +255,25 @@ function load() {
 
 //Timer de checagem de variáveis
         let intervalo1 = setInterval(function () {
+            //Embelezamento de onda
+            if (bpm > 150) {
+                heart.ampDivisor = 1;
+                divisor = 900;
+                heart.timer = 24;
+            } else if (bpm >= 100) {
+                heart.ampDivisor = 3
+                heart.timer = 20;
+                divisor = 300;
+            } else if (bpm > 50) {
+                heart.timer = 19;
+                heart.ampDivisor = 7
+
+                divisor = 60;
+            } else if (bpm <= 50) {
+                heart.ampDivisor = 8
+                heart.time = 18;
+                divisor = 30;
+            }
 
 
             if (bpm > 200 || bpm < 0) {
@@ -337,9 +359,12 @@ function load() {
 
 //Timer somador de energia
         setInterval(() => {
+            if (energia <= 400) {
+                energia += 20;
+                update();
 
-            energia += 20;
-            update();
+            }
+
 
         }, 20000 / bpm);
 
@@ -368,25 +393,25 @@ function load() {
 
         let scene = {
             images: allImages['scene'],
-            animation: new animation(0,0,allImages['scene'],2,3,{
+            animation: new animation(0, 0, allImages['scene'], 2, 3, {
                 blinking: {start: 0, frames: 2, playing: false}
             }, "blinking", true)
         };
 
         let human = {
-          images: allImages['human'],
-          animation: new animation(73,81,allImages['human'],20,10, {
-            breathing: {start: 0, frames: 4, playing: false},
-            heartexplosion: {start: 5, frames: 9, playing: false},
-            shock: {start: 13, frames: 7, playing: false}
-          }, "breathing", true)
+            images: allImages['human'],
+            animation: new animation(73, 81, allImages['human'], 20, 10, {
+                breathing: {start: 0, frames: 4, playing: false},
+                heartexplosion: {start: 5, frames: 9, playing: false},
+                shock: {start: 13, frames: 7, playing: false}
+            }, "breathing", true)
         };
 
         let intervaloCanvas = setInterval(() => {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             scene.animation.run();
             human.animation.run();
-        },1000/60);
+        }, 1000 / 60);
 
     }
 }

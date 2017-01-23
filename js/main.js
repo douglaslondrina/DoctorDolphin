@@ -477,9 +477,9 @@ function load() {
                         
                             energia -= 100;
                             if (bpm < 60) {
-                                bpm += bpm * 35 / 100 + 5;
+                                bpm += bpm * 35 / 100 + 25;
                             } else {
-                                bpm +=  bpm * 20 / 100;
+                                bpm +=  bpm * 30 / 100;
                             }
                             hidratacao -= 10;
                             update();

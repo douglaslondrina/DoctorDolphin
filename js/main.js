@@ -309,7 +309,7 @@ function load() {
             hidratacaoHtml.innerHTML = "Hidratação: " + hidratacao;
             bpmHtml.innerHTML = "Bpm: " + bpm;
             energiaHtml.innerHTML = "Energia: " + energia;
-            scoreHtml.innerHTML = "Score: " + score;
+            scoreHtml.innerHTML = "SCORE: " + score;
             heart.input = bpm;
         }
 
@@ -454,6 +454,7 @@ function load() {
         window.addEventListener("keyup", function (event) {
 
                 if (game_over) {
+                    
                     game_over = false;
                     restartPlay();
                 }
@@ -498,7 +499,7 @@ function load() {
         ;
 
 
-//Timer de mexer no BPM
+//Timer to set BPM
         setInterval(() => {
             let tendencia = 0.5;
 
@@ -514,7 +515,7 @@ function load() {
             let decisor = Math.random();
             
 
-            //Somagem ao bpm
+            //BPM addition
             let somador = 0;
 
             if (bpm < 50 || bpm > 150){
@@ -546,10 +547,9 @@ function load() {
 
         }, 20000 / bpm);
 
-//Morte
 
 
-// Escreve a priemira vez os valores
+// Escreve a primeira vez os valores
         let hidratacaoHtml = document.getElementById('hidratacao');
         hidratacaoHtml.innerHTML = "Hidratação: " + hidratacao;
 

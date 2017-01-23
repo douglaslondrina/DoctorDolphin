@@ -420,7 +420,7 @@ function load() {
             energyLevel(energ);
 
             //nível do soro
-            let hi = 42 - Math.floor((41*hidratacao)/100);
+            let hi = 42 - Math.floor((42*hidratacao)/100);
 
             serumLevel(hi);
 
@@ -471,20 +471,22 @@ function load() {
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
-                    energyPulse();
-                    setTimeout(function () {
-                      if (energia >= 100 && hidratacao >= 10) {
-                          energia -= 100;
-                          if (bpm < 60) {
-                              bpm += bpm * 35 / 100 + 5;
-                          } else {
-                              bpm +=  bpm * 20 / 100;
-                          }
-                          hidratacao -= 10;
-                          update();
-                      }
+                    if (energia >= 100 && hidratacao >= 10) {
+                        energyPulse();
+                        setTimeout(function () {
+                        
+                            energia -= 100;
+                            if (bpm < 60) {
+                                bpm += bpm * 35 / 100 + 5;
+                            } else {
+                                bpm +=  bpm * 20 / 100;
+                            }
+                            hidratacao -= 10;
+                            update();
+                        
 
-                    }, 800);
+                        }, 800);
+                    }
 
                 } else if (event.keyCode == keyRight && death == false) {
                     if (energia >= 400) {
@@ -546,7 +548,7 @@ function load() {
             }
 
 
-        }, 20000 / bpm);
+        }, 30000 / bpm);
 
 
 

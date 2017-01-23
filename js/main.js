@@ -430,9 +430,10 @@ function load() {
                 death = true;
 
             }
-            if (hidratacao <= 0) {
+            //Hidratação não mata mais, apenas bloqueia o defib.
+            /*if (hidratacao <= 0) {
                 death = true;
-            }
+            }*/
             if (death == true) {
 
                 heart.pumping = false;
@@ -472,10 +473,10 @@ function load() {
                 } else if (event.keyCode == keyLeft && death == false) {
                     energyPulse();
                     setTimeout(function () {
-                      if (energia >= 100) {
+                      if (energia >= 100 && hidratacao >= 10) {
                           energia -= 100;
                           if (bpm < 60) {
-                              bpm += bpm * 20 / 100 + 10;
+                              bpm += bpm * 35 / 100 + 5;
                           } else {
                               bpm +=  bpm * 20 / 100;
                           }

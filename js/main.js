@@ -258,7 +258,6 @@ function load() {
         }, 1000 / divisor);
 
 
-        //Parte jogável
 
         //Dados iniciais
         let hidratacao = 70;
@@ -271,7 +270,6 @@ function load() {
         //Morrer
 
         function dead() {
-            //reset();
 
             setTimeout(function () {
 
@@ -362,7 +360,7 @@ function load() {
                 }
             }, time * 10);
         }
-        //sons
+        
 
 
 
@@ -371,46 +369,49 @@ function load() {
             //Embelezamento de onda
             if (bpm > 180) {
                 heart.ampDivisor = 0.5;
-                divisor = 900;
+                divisor = 1000;
                 heart.timer = 24;
             } else if (bpm >= 160) {
-                heart.ampDivisor = 3
+                heart.ampDivisor = 5;
                 heart.timer = 23;
                 divisor = 800;
             } else if (bpm >= 140) {
-                heart.ampDivisor = 4
+                heart.ampDivisor = 5;
                 heart.timer = 20;
                 divisor = 600;
             } else if (bpm >= 120) {
-                heart.ampDivisor = 5
+                heart.ampDivisor = 5;
                 heart.timer = 22;
-                divisor = 400;
+                divisor = 300;
             } else if (bpm >= 100) {
-                heart.ampDivisor = 5
+                heart.ampDivisor = 5;
                 heart.timer = 20;
                 divisor = 150;
-            } else if (bpm > 80) {
+            } else if (bpm >= 80) {
                 heart.timer = 19;
-                heart.ampDivisor = 7
+                heart.ampDivisor = 5;
                 divisor = 90;
-            } else if (bpm <= 60) {
-                heart.ampDivisor = 8
-                heart.time = 18;
-                divisor = 60;
-            } else if (bpm <= 40) {
-                heart.ampDivisor = 8
-                heart.time = 17;
+            } else if (bpm >= 60) {
+                heart.ampDivisor = 5.1;
+                heart.timer = 24;
+                divisor = 1;
+            } else if (bpm >= 40) {
+                heart.ampDivisor = 5
+                heart.timer = 25;
                 divisor = 30;
-            } else if (bpm <= 20) {
-                heart.ampDivisor = 8
-                heart.time = 16;
+            } else if (bpm >= 20) {
+                heart.ampDivisor = 5;
+                heart.timer = 30;
+                divisor = 10;
+            } else if (bpm > 0) {
+                heart.ampDivisor = 3;
+                heart.timer = 30;
+                divisor = 1;
+            } else if (bpm <= 0) {
+                heart.ampDivisor = 1
+                heart.timer = 55;
                 divisor = 30;
-            }
-            else if (bpm <= 0) {
-                heart.ampDivisor = 8
-                heart.time = 20;
-                divisor = 50;
-            }
+            };
             //nível de energia
 
             let energ = Math.floor(energia/100) + 1;
@@ -418,21 +419,18 @@ function load() {
                 energ+=1;
             energyLevel(energ);
 
+            //nível do soro
             let hi = 42 - Math.floor((41*hidratacao)/100);
-            console.log(hi);
 
             serumLevel(hi);
 
 
-
-
-
-
+            //Checagem do BPM
             if (bpm > 200 || bpm < 0) {
                 death = true;
 
             }
-            if (hidratacao <= 0 || hidratacao >= 100) {
+            if (hidratacao <= 0) {
                 death = true;
             }
             if (death == true) {
@@ -462,9 +460,12 @@ function load() {
 
                 //tecla S
                 if (event.keyCode == keyDown && death == false) {
-                    hidratacao += 5;
+                    if (hidratacao <= 95){
+                        hidratacao += 5;
                     bpm -= bpm * 20 / 100;
                     update();
+                    }
+                    
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
@@ -475,7 +476,7 @@ function load() {
                           if (bpm < 60) {
                               bpm += bpm * 20 / 100 + 10;
                           } else {
-                              bpm += bpm * 20 / 100;
+                              bpm +=  bpm * 20 / 100;
                           }
                           hidratacao -= 10;
                           update();
@@ -483,7 +484,7 @@ function load() {
 
                     }, 800);
 
-                } else if (event.keyCode == keyRight) {
+                } else if (event.keyCode == keyRight && death == false) {
                     if (energia >= 400) {
                         energia -= 400;
                         score += 1;
@@ -499,25 +500,29 @@ function load() {
 
 //Timer de mexer no BPM
         setInterval(() => {
-            let tendencia;
+            let tendencia = 0.5;
+
+            //Random tendencioso (Menor que 100 tende a cair, maior que 100 tende a subir)
             if (bpm >= 100) {
                 tendencia = ((bpm - 100) / 2) / 100 + 0.5;
             }
             else {
                 tendencia = (bpm / 100) / 2;
             }
+            
 
             let decisor = Math.random();
+            
+
+            //Somagem ao bpm
             let somador = 0;
 
-            if (bpm < 60){
-              somador = Math.random() * 3 + 3;
-            } else{
-              somador = Math.random() * 6 + 3;
+            if (bpm < 50 || bpm > 150){
+                somador = Math.random() * 2 + 2;
+                          
+            } else {
+                somador = Math.random() * 6 + 3;
             }
-
-
-
 
             if (decisor < tendencia)
                 bpm += somador;

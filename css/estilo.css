@@ -13,14 +13,23 @@
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
 
 }
-#score_box {
-}
+/*#score_box {
+}*/
 
 #text {
     z-index: 2;
     position: absolute;
     display: none;
 }
+
+#score_box {
+    z-index: 0;
+    position: absolute;
+    top: 0 px;
+    left: 30 px;
+    
+}
+
 #heartCanvas {
     position: absolute;
     top:  56%;

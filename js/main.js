@@ -124,7 +124,7 @@ function load() {
                 breathing: {start: 0, frames: 4, playing: false},
                 shock: {start: 14, frames: 2, playing: false},
                 deathexplosion: {start: 6, frames: 7, playing: false},
-                deathinanition: {start: 4, frames: 3, playing: false},
+                deathinanition: {start: 3, frames: 3, playing: false},
                 deathburn: {start: 14, frames: 6, playing: false},
                 smoking: {start: 19, frames: 2, playing: false}
             }, "breathing", true)
@@ -360,7 +360,7 @@ function load() {
                 }
             }, time * 10);
         }
-        
+
 
 
 
@@ -455,7 +455,7 @@ function load() {
         window.addEventListener("keyup", function (event) {
 
                 if (game_over) {
-                    
+
                     game_over = false;
                     restartPlay();
                 }
@@ -467,14 +467,14 @@ function load() {
                     bpm -= bpm * 20 / 100;
                     update();
                     }
-                    
+
 
                     //tecla A
                 } else if (event.keyCode == keyLeft && death == false) {
                     if (energia >= 100 && hidratacao >= 10) {
                         energyPulse();
                         setTimeout(function () {
-                        
+
                             energia -= 100;
                             if (bpm < 60) {
                                 bpm += bpm * 35 / 100 + 25;
@@ -483,7 +483,7 @@ function load() {
                             }
                             hidratacao -= 10;
                             update();
-                        
+
 
                         }, 800);
                     }
@@ -513,17 +513,17 @@ function load() {
             else {
                 tendencia = (bpm / 100) / 2;
             }
-            
+
 
             let decisor = Math.random();
-            
+
 
             //BPM addition
             let somador = 0;
 
             if (bpm < 50 || bpm > 150){
                 somador = Math.random() * 2 + 2;
-                          
+
             } else {
                 somador = Math.random() * 6 + 3;
             }
